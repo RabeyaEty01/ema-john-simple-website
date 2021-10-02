@@ -1,6 +1,6 @@
 # Ema John Simple Shop Website
 
-You can see the projects here (https://ema-john-simple-shop-website.netlify.app/shop).
+You can see the projects here (https://ema-john-simple-shop-website.netlify.app).
 
 ## In this project
 * you can add product to the cart
