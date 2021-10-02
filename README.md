@@ -8,4 +8,5 @@ You can see the projects here (https://ema-john-simple-shop-website.netlify.app/
 * you can search products 
 * you can see the dynamic ratings 
 * you can see order review
+* you can remove items from your cart in order review page
 * route added
