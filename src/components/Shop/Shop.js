@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const Shop = () => {
 
     const [products, setProducts] = useState([]);
-    const [displayProducts, setDisplayProducts]=useState([]);
+    const [displayProducts, setDisplayProducts] = useState([]);
     const [cart, setCart] = useState([]);
 
 
@@ -45,7 +45,18 @@ const Shop = () => {
     }, [products]);
 
     const handleAddToCart = (product) => {
-        const newCart = [...cart, product];
+        const exists = cart.find(pd => pd.key === product.key);
+        let newCart = [];
+        if (exists) {
+            const rest = cart.filter(pd => pd.key !== product.key);
+            exists.quantity = exists.quantity + 1;
+            newCart=[...rest,product];
+        }
+        else {
+            product.quantity = 1;
+            newCart = [...cart, product];
+        }
+
         setCart(newCart);
         //save to local storage (for now)
         addToDb(product.key);
@@ -53,7 +64,7 @@ const Shop = () => {
 
     const handleSearch = event => {
         const searchText = event.target.value;
-        const matchedProducts =products.filter(product=>product.name.toLowerCase().includes(searchText.toLowerCase()));
+        const matchedProducts = products.filter(product => product.name.toLowerCase().includes(searchText.toLowerCase()));
         setDisplayProducts(matchedProducts);
 
 
@@ -63,7 +74,7 @@ const Shop = () => {
     return (
         <div>
             <div className="search-container">
-                <input type="text" 
+                <input type="text"
                     onChange={handleSearch} placeholder="Search Product" />
             </div>
 
@@ -71,7 +82,7 @@ const Shop = () => {
                 <div className="product-container">
                     <h3>Products:{products.length} </h3>
                     {
-                    displayProducts.map(product => <Product
+                        displayProducts.map(product => <Product
                             key={product.key}
                             product={product}
                             handleAddToCart={handleAddToCart}
@@ -80,8 +91,8 @@ const Shop = () => {
                 </div>
                 <div className="cart-container">
                     <Cart cart={cart}>
-                       <Link to="/review">
-                        <button className="btn-regular">Review Your Order</button>
+                        <Link to="/review">
+                            <button className="btn-regular">Review Your Order</button>
                         </Link>
                     </Cart>
                 </div>
